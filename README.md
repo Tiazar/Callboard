@@ -1,1 +1,1 @@
-Доска объявлений [из задания ](https://docviewer.yandex.ru/?url=ya-disk-public%3A%2F%2FLx3ki2hB2MoAEX38ovd92d6kyq2U88lqD5AhV7gz95c%3D%3A%2Frailstesttask1.pdf&name=railstesttask1.pdf&c=55e1ff915663).
+Доска объявлений [из задания ](https://yadi.sk/i/dkeHFSQXinRxQ).
