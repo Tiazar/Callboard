@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use sqlite3 as the database for Active Record
@@ -45,3 +45,16 @@ group :development, :test do
   gem 'spring'
 end
 
+
+
+
+group :test do
+  gem 'selenium-webdriver', '2.35.1'
+end
+
+
+
+group :production do
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
+end
