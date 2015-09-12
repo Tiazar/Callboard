@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use sqlite3 as the database for Active Record
@@ -31,6 +30,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'bcrypt-ruby'
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'rspec-rails'
