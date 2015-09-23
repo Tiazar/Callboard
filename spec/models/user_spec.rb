@@ -2,22 +2,38 @@ require 'spec_helper'
 
 describe User do
 
-  before { @user = User.new(full_name: "Example User", email: "user@example.com",
-  							password: "foobar", password_confirmation: "foobar") }
+  before { @user = User.new(login: "User1" ,
+  							full_name:"Example User",
+  							email: "user@example.com",
+  							birthday: "30.05.2000",
+  							address: "Example street, 20",
+  							city:"Example city",
+  							state:"Example State",
+  							country:"Example Country",
+  							zip:"123456",
+  							password: "foobar",
+  							password_confirmation: "foobar") }
 
   subject { @user }
 
-  it { should respond_to(:full_name) }
+  it { should respond_to(:login) }
   it { should respond_to(:email) }
+  it { should respond_to(:full_name) }
+  it { should respond_to(:birthday) }
+  it { should respond_to(:address) }
+  it { should respond_to(:city) }
+  it { should respond_to(:state) }
+  it { should respond_to(:country) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  
 
   it { should be_valid }
 
-  describe "when name is not present" do
-    before { @user.full_name = " " }
+  describe "when login is not present" do
+    before { @user.login = " " }
     it { should_not be_valid }
   end
 
@@ -26,8 +42,8 @@ describe User do
     it { should_not be_valid }
   end
 
-  describe "when name is too long" do
-    before { @user.full_name = "a" * 101 }
+  describe "when login is too long" do
+    before { @user.login = "a" * 51 }
     it { should_not be_valid }
   end
 
@@ -62,9 +78,19 @@ describe User do
     it { should_not be_valid }
   end
 
+  describe "email address with mixed case" do
+    let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+
+    it "should be saved as all lower-case" do
+      @user.email = mixed_case_email
+      @user.save
+      expect(@user.reload.email).to eq mixed_case_email.downcase
+    end
+  end
+
   describe "when password is not present" do
     before do
-      @user = User.new(full_name: "Example User", email: "user@example.com",
+      @user = User.new(login: "Example User", email: "user@example.com",
                        password: " ", password_confirmation: " ")
     end
     it { should_not be_valid }
@@ -94,5 +120,60 @@ describe User do
       it { should_not eq user_for_invalid_password }
       specify { expect(user_for_invalid_password).to be_falsey }
     end
+  end
+
+  describe "when full_name is not present" do
+    before { @user.full_name = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when full_name is too long" do
+    before { @user.full_name = "a" * 201 }
+    it { should_not be_valid }
+  end
+
+  describe "when birthday is not present" do
+    before { @user.birthday = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when birthday date is wrong" do
+    before { @user.birthday = "32.05.200" }
+    it { should_not be_valid }
+  end
+
+  describe "when address is not pesent" do
+  	before { @user.address = " "}
+  	it { should_not be_valid}
+  end	
+
+  describe "when city is not pesent" do
+  	before { @user.city = " "}
+  	it { should_not be_valid}
+  end
+
+  describe "when city name is too long" do
+    before { @user.city = "a" * 101 }
+    it { should_not be_valid }
+  end
+
+  describe "when state is not pesent" do
+  	before { @user.state = " "}
+  	it { should_not be_valid}
+  end
+
+  describe "when country is not pesent" do
+  	before { @user.country = " "}
+  	it { should_not be_valid}
+  end
+
+  describe "when zip is not pesent" do
+  	before { @user.zip = " "}
+  	it { should_not be_valid}
+  end
+
+  describe "when zip name is too long" do
+    before { @user.zip = "1" * 7 }
+    it { should_not be_valid }
   end
 end
