@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe User do
 
-  before { @user = User.new(login: "User1" ,
-  							full_name:"Example User",
+  before { @user = User.new(login: "User1",
+  							name:"Example User",
   							email: "user@example.com",
   							birthday: "30.05.2000",
   							address: "Example street, 20",
@@ -18,12 +18,13 @@ describe User do
 
   it { should respond_to(:login) }
   it { should respond_to(:email) }
-  it { should respond_to(:full_name) }
+  it { should respond_to(:name) }
   it { should respond_to(:birthday) }
   it { should respond_to(:address) }
   it { should respond_to(:city) }
   it { should respond_to(:state) }
   it { should respond_to(:country) }
+  it { should respond_to(:zip) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
@@ -122,13 +123,13 @@ describe User do
     end
   end
 
-  describe "when full_name is not present" do
-    before { @user.full_name = " " }
+  describe "when name is not present" do
+    before { @user.name = " " }
     it { should_not be_valid }
   end
 
-  describe "when full_name is too long" do
-    before { @user.full_name = "a" * 201 }
+  describe "when name is too long" do
+    before { @user.name = "a" * 201 }
     it { should_not be_valid }
   end
 

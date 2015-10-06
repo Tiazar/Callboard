@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
 gem 'validates_timeliness'
-
+gem 'factory_girl_rails'
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara', '2.2.0'
