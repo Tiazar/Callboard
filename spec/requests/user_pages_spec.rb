@@ -26,15 +26,15 @@ describe "User pages" do
 
     describe "with valid information" do
       before do
-        fill_in "Name",    with: "Example User"
+        fill_in "Name",         with: "Example User"
         fill_in "Email",        with: "user@example.com"
-        fill_in "Login",		with: "Test"
-        fill_in "Birthday",		with: "09.12.1985"
-        fill_in "Address",		with: "Example Street, 12"
-        fill_in "City",			with: "Default city"
-        fill_in "State",		with: "Example state"
-        fill_in "Country",		with: "Example country"
-        fill_in "Zip",			with: "123456"
+        fill_in "Login",		    with: "Test"
+        fill_in "Birthday",		  with: "09.12.1985"
+        fill_in "Address",		  with: "Example Street, 12"
+        fill_in "City",			    with: "Default city"
+        fill_in "State",		    with: "Example state"
+        fill_in "Country",		  with: "Example country"
+        fill_in "Zip",			    with: "123456"
         fill_in "Password",     with: "foobar"
         fill_in "Confirmation", with: "foobar"
       end
