@@ -11,6 +11,7 @@
 
 # Игнорирование прочих ненужных файлов.
 database.yml
+coverage
 doc/
 *.swp
 *~

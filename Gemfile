@@ -35,6 +35,8 @@ gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
 gem 'validates_timeliness'
 gem 'factory_girl_rails'
+# Покрытие тестами
+gem 'simplecov', :require => false, :group => :test
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara', '2.2.0'
