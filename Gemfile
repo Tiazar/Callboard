@@ -37,9 +37,14 @@ gem 'validates_timeliness'
 gem 'factory_girl_rails'
 # Покрытие тестами
 gem 'simplecov', :require => false, :group => :test
+# Заполнение бд
+gem 'faker'
+# пагинация
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 group :development, :test do
   gem 'rspec-rails'
-  gem 'capybara', '2.2.0'
+  gem 'capybara'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
