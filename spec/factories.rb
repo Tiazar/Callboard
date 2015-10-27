@@ -11,5 +11,10 @@ FactoryGirl.define do
     zip   				        "654321"
     password              "foobar"
     password_confirmation "foobar"
+
+
+    factory :admin do
+        admin true
+    end
   end
 end
