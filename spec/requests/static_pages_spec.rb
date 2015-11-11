@@ -24,4 +24,15 @@ describe "Static pages" do
     it { should have_content('About') }
     it { should have_title("Callboard | About Us") }
   end
+
+  describe "browse ads" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:p1) { FactoryGirl.create(:post, user: user, content: "Foo") }
+    let!(:p2) { FactoryGirl.create(:post, user: user, content: "Bar") }
+
+    before { visit root_path }
+
+    it { should have_content(p1.content) }
+    it { should have_content(p2.content) }
+  end
 end

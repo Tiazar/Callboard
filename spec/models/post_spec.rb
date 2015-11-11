@@ -34,4 +34,5 @@ describe Post do
     before { @post.content = "a" * 1801 }
     it { should_not be_valid }
   end
+  
 end

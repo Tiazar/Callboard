@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts.paginate(page: params[:page])
   end
 
   def create
@@ -58,16 +59,6 @@ class UsersController < ApplicationController
 
       def admin_user
         redirect_to(root_path) unless current_user.admin?
-      end
-
-      # Before filters
-
-      def signed_in_user
-        unless signed_in?
-          flash[:info] = "Please sign in."
-          store_location
-          redirect_to signin_url
-        end
       end
 
       def correct_user
