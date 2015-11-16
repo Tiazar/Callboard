@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy, :update, :edit]
-  before_action :correct_user,   only: :destroy
+  before_action :admin_or_author, only: [:destroy, :edit, :update]
 
   def create
     @post = current_user.posts.build(post_params)
@@ -43,8 +43,17 @@ class PostsController < ApplicationController
       params.require(:post).permit(:content)
     end
 
-    def correct_user
+    def admin_or_author
       @post = current_user.posts.find_by(id: params[:id])
       redirect_to root_url if @post.nil?
+      redirect_to(root_url) unless administrator? || authorship?
+    end
+
+    def administrator?
+      current_user.admin?
+    end
+
+    def authorship?
+      @post.user == current_user
     end
 end
