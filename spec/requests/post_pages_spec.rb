@@ -59,4 +59,21 @@ describe "Post pages" do
     end
   end
 
+  describe "post page" do
+    let(:p1) { FactoryGirl.create(:post, user: user) }
+    let!(:c1) { FactoryGirl.create(:comment, post: p1, user: user, content: "Foo") }
+    let!(:c2) { FactoryGirl.create(:comment, post: p1, user: user, content: "Bar") }
+
+    before { visit post_path(p1) }
+
+    it { should have_content(user.name) }
+
+    describe "comments" do
+      it { should have_content(c1.content) }
+      it { should have_content(c2.content) }
+      it { should have_content(p1.comments.count) }
+    end
+  end
+
+
 end

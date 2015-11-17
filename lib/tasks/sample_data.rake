@@ -3,6 +3,7 @@ namespace :db do
   task populate: :environment do
     make_users
     make_posts
+    make_comments
 end
 
 def make_users
@@ -49,10 +50,21 @@ def make_users
     end
   end
 end
+
 def make_posts
   users = User.limit(6)
     50.times do
       content = Faker::Lorem.sentence(5)
       users.each { |user| user.posts.create!(content: content) }
     end
+end
+
+def make_comments
+  posts = Post.limit(10)
+  users = User.limit(6)
+
+  posts.each do |p|
+    content = Faker::Lorem.sentence(2)
+    users.each { |user| p.comments.create!(content: content, user_id: user.id ) }
+  end
 end
