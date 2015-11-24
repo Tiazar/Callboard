@@ -1,28 +1,36 @@
-<li>
-  <span class="content"><%= @post.content %></span>
-  <span> <p> Comments: <%= @post.comments.count %> </p> </span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(@post.created_at) %> ago.
-  </span>
-  <div>
-    <% if current_user.try(:admin?) || current_user?(@post.user) %>
-      <%= link_to "delete", @post, method: :delete,
-                                       data: { confirm: "You sure?" },
-                                       title: @post.content %>
-      <%= link_to "edit", edit_post_path(@post) %>
-    <% end %>
+<div class="row">
+  <div class="postBox col-xs-10">
+    <span class="content"><%= @post.content %></span>
+    <span class="timestamp">
+      <p class="text-right"> Posted <%= time_ago_in_words(@post.created_at) %> ago.
+      </p>
+    </span>
+    <div class="col-xs-2 col-xs-offset-10">
+      <% if current_user.try(:admin?) || current_user?(@post.user) %>
+        <%= button_to "delete", @post, method: :delete,
+                                         data: { confirm: "You sure?" },
+                                         title: @post.content,
+                                         class:"btn btn-warning btn-xs" %>
+        <%= link_to "edit", edit_post_path(@post), class:"btn btn-primary btn-xs btn-block" %>
+      <% end %>
+    <div>
+  </div>
+</div>
+<div class="row">
+  <h2>Comments(<%= @post.comments.count %>)</h2>
+  <div class="commentBox col-xs-10">
 
-    <h2>Comments</h2>
     <% @post.comments.each do |comment| %>
-      <p>
-        <strong>Commenter:</strong>
-        <%= comment.user.name %>
-      </p>
-
-      <p>
-        <strong>Comment:</strong>
-        <%= comment.content %>
-      </p>
+      <div class="comment">
+        <div class="commenter">
+          <span class="username"> <%= comment.user.name %> </span>
+          <span class="commentPoint"> . </span>
+          <span class="datetime"> <%= time_ago_in_words(comment.created_at) %> </span>
+        </div>
+        <div class="commentContent">
+          <%= comment.content %>
+        </div>
+      </div>
     <% end %>
-  <div>
-</li>
+  </div>
+<div>
