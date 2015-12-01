@@ -16,21 +16,11 @@
     <div>
   </div>
 </div>
-<div class="row">
-  <h2>Comments(<%= @post.comments.count %>)</h2>
-  <div class="commentBox col-xs-10">
+<h2 id="commentCount">Comments(<%= @post.comments.count %>)</h2>
 
-    <% @post.comments.each do |comment| %>
-      <div class="comment">
-        <div class="commenter">
-          <span class="username"> <%= comment.user.name %> </span>
-          <span class="commentPoint"> . </span>
-          <span class="datetime"> <%= time_ago_in_words(comment.created_at) %> </span>
-        </div>
-        <div class="commentContent">
-          <%= comment.content %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<div>
+<div id="comments-list">
+  <%= render partial: @post.reload.comments %>
+</div>
+<div id="comment-form">
+  <%= render 'shared/comment_form' %>
+</div>

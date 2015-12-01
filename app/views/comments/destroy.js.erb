@@ -1,0 +1,2 @@
+$("#comments-list").html("<%= escape_javascript(render @post.comments) %>");
+$("#commentCount").html("Comments(<%= @post.comments.count %>)");

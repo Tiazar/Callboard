@@ -1,0 +1,29 @@
+<div class="commentBox">
+  <div class="row">
+
+
+
+        <div class="comment col-xs-10 col-xs-offset-2">
+          <div class="commenter">
+            <span class="username"> <%= comment.user.name %> </span>
+            <span class="commentPoint"> . </span>
+            <span class="datetime"> <%= time_ago_in_words(comment.created_at) %> </span>
+          </div>
+          <div class="commentContent">
+            <%= comment.content %>
+          </div>
+          <div class="row">
+            <div class="col-xs-10">
+              <% if current_user.try(:admin?) || current_user?(@post.user) %>
+                <%= button_to "delete", [@post, comment],
+                                                 remote: true,
+                                                 method: :delete,
+                                                 class:"btn btn-warning btn-xs col-xs-2" %>
+
+              <% end %>
+            </div>
+          </div>
+        </div>
+      
+  </div>
+</div>

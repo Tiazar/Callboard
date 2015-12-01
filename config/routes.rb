@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :posts, only: [:create, :destroy, :edit, :show, :update] do
-    resources :comments
+    resources :comments, only: [:create, :destroy]
   end
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
