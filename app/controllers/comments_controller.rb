@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
         format.html do
           flash[:success] = "Your comment has been posted."
           redirect_to @post
+
         end
         format.js
       end

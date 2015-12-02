@@ -42,6 +42,8 @@ gem 'faker'
 # пагинация
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+# Textile
+gem 'RedCloth'
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
