@@ -5,6 +5,9 @@
       <h1>
         <%= @user.name %>
       </h1>
+      <div class="map">
+        <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@user.latitude}%2C#{@user.longitude}" %>
+      </div>
     </section>
   </aside>
 

@@ -69,4 +69,5 @@ class UsersController < ApplicationController
       def restrict_registration
         redirect_to root_url, notice: "You are already regsitered." if signed_in?
       end
+
 end

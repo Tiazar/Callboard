@@ -44,6 +44,8 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 # Textile
 gem 'RedCloth'
+# геолокация
+gem 'geocoder'
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'

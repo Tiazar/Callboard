@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   validates :state, presence: true
   validates :country, presence: true
   validates :zip, presence: true, length: { maximum: 6}
+  geocoded_by :address
+  after_validation :geocode
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -30,5 +32,9 @@ class User < ActiveRecord::Base
 
     def create_remember_token
       self.remember_token = User.encrypt(User.new_remember_token)
+    end
+
+    def fulladdress
+      [address, city, state, country].compact.join(', ')
     end
 end
