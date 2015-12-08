@@ -1,6 +1,7 @@
 <% if signed_in? %>
   <%= form_for [ @post, Comment.new], remote: true do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+    <div id="error"> <%= render 'shared/error_messages', object: f.object %>
+    </div>
             <%= f.text_field :name, readonly: true, value: current_user.name, class: 'form-control' %>
             <%= f.text_area :content, rows: '10', class: 'form-control' %>
             <%= f.submit 'Post your comment', class: 'btn btn-default' %>

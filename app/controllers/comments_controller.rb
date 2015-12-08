@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
       flash.now[:danger] = "error"
       respond_to do |format|
         format.html { render @post }
+        format.json { head :no_content }
         format.js
       end
     end
