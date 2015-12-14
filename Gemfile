@@ -46,6 +46,8 @@ gem 'bootstrap-will_paginate'
 gem 'RedCloth'
 # геолокация
 gem 'geocoder'
+
+gem "paperclip"
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
