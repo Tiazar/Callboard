@@ -1,4 +1,13 @@
 <li>
+
+  <% unless post.pictures.empty? %>
+    <% post.pictures.each do |pic| %>
+        <%= image_tag pic.image.url %>
+
+          </p>
+    <% end %>
+  <% end %>
+
   <span class="content"><%= post.content %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.

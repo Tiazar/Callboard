@@ -20,3 +20,4 @@ doc/
 .idea
 .secret
 /public/system/users
+/public/images

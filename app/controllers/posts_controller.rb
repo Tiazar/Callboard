@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
+      image_create
       flash[:success] = "Post created!"
       redirect_to root_url
     else
@@ -38,6 +39,14 @@ class PostsController < ApplicationController
   end
 
   private
+
+    def image_create
+      if params[:images]
+        params[:images].each { |image|
+          @post.pictures.create(image: image)
+        }
+      end
+    end
 
     def post_params
       params.require(:post).permit(:content)

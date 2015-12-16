@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
+  has_many :pictures, :dependent => :destroy
   belongs_to :user
   validates :user_id, presence: true
   default_scope -> { order('created_at DESC') }
