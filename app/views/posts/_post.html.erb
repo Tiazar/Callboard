@@ -2,9 +2,7 @@
 
   <% unless post.pictures.empty? %>
     <% post.pictures.each do |pic| %>
-        <%= image_tag pic.image.url %>
-
-          </p>
+        <%= image_tag pic.image.url(:thumb) %>
     <% end %>
   <% end %>
 

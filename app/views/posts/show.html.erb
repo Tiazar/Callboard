@@ -2,9 +2,7 @@
   <div class="postBox col-xs-10">
     <% unless @post.pictures.empty? %>
       <% @post.pictures.each do |pic| %>
-          <%= image_tag pic.image.url %>
-
-            </p>
+          <%= link_to  image_tag(pic.image.url(:medium)), pic.image.url %>
       <% end %>
     <% end %>
     <span class="content"><%= @post.content %></span>
