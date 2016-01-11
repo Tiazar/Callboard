@@ -46,3 +46,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.infer_spec_type_from_file_location!
 end
+
+Capybara.register_driver :rack_test do |app|
+  Capybara::RackTest::Driver.new(app, :respect_data_method => true, :redirect_limit => 200)
+end

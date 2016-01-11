@@ -27,12 +27,9 @@ describe User do
   it { should respond_to(:state) }
   it { should respond_to(:country) }
   it { should respond_to(:zip) }
-  it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
-  it { should respond_to(:authenticate) }
   it { should respond_to(:remember_token) }
-  it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:posts) }
   it { should respond_to(:comments) }
@@ -127,7 +124,7 @@ describe User do
     before { @user.save }
     let(:found_user) { User.find_by(email: @user.email) }
 
-    describe "with valid password" do
+    describe "with valid password"  do
       it { should eq found_user.authenticate(@user.password) }
     end
 

@@ -8,15 +8,17 @@ def full_title(page_title)
 end
 
 def sign_in(user, options={})
-  if options[:no_capybara]
-    # Sign in when not using Capybara.
-    remember_token = User.new_remember_token
-    cookies[:remember_token] = remember_token
-    user.update_attribute(:remember_token, User.encrypt(remember_token))
-  else
-    visit signin_path
+    visit user_session_path
     fill_in "Email",           with: user.email
     fill_in "Password",        with: user.password
     click_button "Sign in"
-  end
+end
+
+def login_as_casual_user
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+     if(@logined != nil)
+         sign_out :user
+    end
+    sign_in users(:casual)
+    @logined = true
 end

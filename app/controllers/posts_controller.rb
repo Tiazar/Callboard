@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy, :update, :edit]
   before_action :admin_or_author, only: [:destroy, :edit, :update]
 
+
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
@@ -20,6 +21,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
     @post.destroy
     redirect_to root_url
   end
@@ -53,13 +55,13 @@ class PostsController < ApplicationController
     end
 
     def admin_or_author
-      @post = current_user.posts.find_by(id: params[:id])
+      @post = Post.find_by(id: params[:id])
       redirect_to root_url if @post.nil?
       redirect_to(root_url) unless administrator? || authorship?
     end
 
     def administrator?
-      current_user.admin?
+      current_user.try(:admin?)
     end
 
     def authorship?

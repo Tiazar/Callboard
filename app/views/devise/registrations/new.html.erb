@@ -1,0 +1,14 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <%= render "devise/shared/fields", f: f %>
+  <div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+    </div>
+    <div class="col-xs-4"></div>
+  </div>
+  <%= render "devise/shared/links" %>
+<% end %>

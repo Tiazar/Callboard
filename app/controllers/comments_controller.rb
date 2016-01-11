@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+before_action :admin_or_author, only: [:destroy, :edit, :update]
+before_action :signed_in_user, only:  :destroy
 
   def create
     @post = Post.find(params[:post_id])
@@ -35,5 +37,19 @@ class CommentsController < ApplicationController
   private
     def comment_params
       params.require(:comment).permit(:user_id, :content)
+    end
+
+    def admin_or_author
+      @comment = Comment.find_by(id: params[:id])
+      redirect_to root_url if @comment.nil?
+      redirect_to(root_url) unless administrator? || authorship?
+    end
+
+    def administrator?
+      current_user.try(:admin?)
+    end
+
+    def authorship?
+      @comment.user == current_user
     end
 end

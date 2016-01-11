@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
-  has_many :comments
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+  has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
   before_save { self.email = email.downcase }
   before_create :create_remember_token
@@ -8,8 +12,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true,
   			format: { with: VALID_EMAIL_REGEX },
   			uniqueness: { case_sensitive: false }
-  has_secure_password
-  validates :password, length: { minimum: 6 }
   validates :name, presence: true, length: { maximum: 200}
   validates_date :birthday, presence: true
   validates :address, presence: true

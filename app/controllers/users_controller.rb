@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :signed_in_user, only: [:index, :edit, :update]
   before_action :admin_user,     only: :destroy
   before_action :restrict_registration, only: [:new, :create]
+  # before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!, only: [:create, :destroy, :edit, :update]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -21,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to the Callboard!"
       redirect_to @user
     else
       render 'new'
@@ -49,16 +51,18 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+
+
+
   private
 
       def user_params
         params.require(:user).permit(:name, :login, :email, :birthday,
-         :address, :city, :state, :country, :zip, :password,
-         :password_confirmation, :avatar)
+         :address, :city, :state, :country, :zip, :password, :avatar)
       end
 
       def admin_user
-        redirect_to(root_path) unless current_user.admin?
+        redirect_to(root_path) unless current_user.try(:admin?)
       end
 
       def correct_user
@@ -67,7 +71,7 @@ class UsersController < ApplicationController
       end
 
       def restrict_registration
-        redirect_to root_url, notice: "You are already regsitered." if signed_in?
+        redirect_to root_url, notice: "You are already regsitered." if user_signed_in?
       end
 
 end

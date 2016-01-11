@@ -33,7 +33,9 @@ describe "User pages" do
 
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
+
         before do
+          click_link "Sign out"
           sign_in admin
           visit users_path
         end
@@ -59,7 +61,7 @@ describe "User pages" do
 
   describe "signup page" do
 
-    before { visit signup_path }
+    before { visit new_user_registration_path}
 
     let(:submit) { "Create my account" }
 
@@ -94,7 +96,7 @@ describe "User pages" do
 
         it { should have_link('Sign out') }
         it { should have_title(user.name) }
-        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+        it { should have_selector('div.alert.alert-notice', text: 'Welcome') }
       end
     end
   end
@@ -103,7 +105,7 @@ describe "User pages" do
     let(:user) { FactoryGirl.create(:user) }
     before do
       sign_in user
-      visit edit_user_path(user)
+      visit edit_user_registration_path
     end
 
     describe "page" do
@@ -132,12 +134,13 @@ describe "User pages" do
         fill_in "Zip",             with: user.zip
         fill_in "Password",        with: user.password
         fill_in "Confirmation",    with: user.password
+        fill_in "Current password", with:user.password
         click_button "Save changes"
       end
 
       it { should have_title(new_name) }
-      it { should have_selector('div.alert.alert-success') }
-      it { should have_link('Sign out', href: signout_path) }
+      it { should have_selector('div.alert.alert-notice') }
+      it { should have_link('Sign out', href: destroy_user_session_path) }
       specify { expect(user.reload.name).to  eq new_name }
       specify { expect(user.reload.email).to eq new_email }
     end
@@ -148,8 +151,9 @@ describe "User pages" do
                   password_confirmation: user.password } }
       end
       before do
+        click_link "Sign out"
         sign_in user, no_capybara: true
-        patch user_path(user), params
+        patch user_registration_path(user), params
       end
       specify { expect(user.reload).not_to be_admin }
     end

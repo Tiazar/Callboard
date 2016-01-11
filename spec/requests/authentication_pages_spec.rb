@@ -5,29 +5,29 @@ describe "Authentication" do
   subject { page }
 
   describe "signin page" do
-    before { visit signin_path }
+    before { visit new_user_session_path }
 
     it { should have_content('Sign in') }
     it { should have_title('Sign in') }
     it { should_not have_link('Users') }
     it { should_not have_link('Profile') }
     it { should_not have_link('Settings') }
-    it { should_not have_link('Sign out', href: signout_path) }
-    it { should have_link('Sign in', href: signin_path) }
+    it { should_not have_link('Sign out', href: destroy_user_session_path) }
+    it { should have_link('Sign in', href: new_user_session_path) }
   end
 
   describe "signin" do
-    before { visit signin_path }
+    before { visit new_user_session_path }
 
     describe "with invalid information" do
       before { click_button "Sign in" }
 
       it { should have_title('Sign in') }
-      it { should have_selector('div.alert.alert-error') }
+      it { should have_selector('div.alert.alert-alert') }
 
       describe "after visiting another page" do
         before { click_link "Home" }
-        it { should_not have_selector('div.alert.alert-error') }
+        it { should_not have_selector('div.alert.alert-alert') }
       end
     end
 
@@ -39,9 +39,9 @@ describe "Authentication" do
 
       it { should have_title(user.name) }
       it { should have_link('Profile',     href: user_path(user)) }
-      it { should have_link('Sign out',    href: signout_path) }
-      it { should_not have_link('Sign in', href: signin_path) }
-      it { should have_link('Settings',    href: edit_user_path(user)) }
+      it { should have_link('Sign out',    href: destroy_user_session_path) }
+      it { should_not have_link('Sign in', href: new_user_session_path) }
+      it { should have_link('Settings',    href: edit_user_registration_path)  }
       it { should have_link('Users',       href: users_path) }
 
       describe "followed by signout" do
@@ -59,13 +59,13 @@ describe "Authentication" do
       describe "in the Users controller" do
 
         describe "visiting the edit page" do
-          before { visit edit_user_path(user) }
+          before { visit edit_user_registration_path }
           it { should have_title('Sign in') }
         end
 
         describe "submitting to the update action" do
-          before { patch user_path(user) }
-          specify { expect(response).to redirect_to(signin_path) }
+          before { patch user_registration_path }
+          specify { expect(response).to redirect_to(new_user_session_path) }
         end
 
         describe "visiting the user index" do
@@ -77,19 +77,19 @@ describe "Authentication" do
 
           describe "submitting to the create action" do
             before { post posts_path }
-            specify { expect(response).to redirect_to(signin_path) }
+            specify { expect(response).to redirect_to(new_user_session_path) }
           end
 
           describe "submitting to the destroy action" do
             before { delete post_path(FactoryGirl.create(:post)) }
-            specify { expect(response).to redirect_to(signin_path) }
+            specify { expect(response).to redirect_to(user_session_path) }
           end
         end
       end
 
       describe "when attempting to visit a protected page" do
         before do
-          visit edit_user_path(user)
+          visit edit_user_registration_path
           sign_in user
         end
 
@@ -101,9 +101,9 @@ describe "Authentication" do
 
           describe "when signing in again" do
             before do
-              delete signout_path
-              visit signin_path
-              sign_in user
+              delete destroy_user_session_path
+              visit new_user_session_path
+              new_user_session_path user
             end
 
             it "should render the default (profile) page" do
@@ -129,7 +129,7 @@ describe "Authentication" do
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
-      before { sign_in user, no_capybara: true }
+      before { new_user_session_path user, no_capybara: true }
 
       describe "submitting a GET request to the Users#edit action" do
         before { get edit_user_path(wrong_user) }
@@ -145,7 +145,7 @@ describe "Authentication" do
 
     describe "as admin user" do
       let(:admin) { FactoryGirl.create(:admin) }
-      before { sign_in admin, no_capybara: true }
+      before { new_user_session_path admin, no_capybara: true }
 
       describe "should not be able to delete themselves via #destroy action" do
         specify do

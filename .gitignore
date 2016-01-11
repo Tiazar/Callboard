@@ -21,3 +21,4 @@ doc/
 .secret
 /public/system/users
 /public/images
+config/secrets.yml

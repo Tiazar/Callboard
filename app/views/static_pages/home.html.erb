@@ -1,4 +1,6 @@
-<% if signed_in? %>
+
+<% if user_signed_in? %>
+<% provide(:title, current_user.name) %>
   <div class="row">
     <aside class="col-xs-5">
       <section>
@@ -15,7 +17,7 @@
 	  <h1>Callboard</h1>
 		<h2>
 			Пытаюсь выполнить <a href="">это задание</a>
-		</h2><%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+		</h2><%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-large btn-primary" %>
 	</div>
 </div>
 <% end %>
